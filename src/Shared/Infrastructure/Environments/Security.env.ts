@@ -11,7 +11,7 @@ export class SecurityEnv implements SecurityEnvironment {
 
     private constructor() { }
 
-    public static getInsatance(): SecurityEnv {
+    public static getInstance(): SecurityEnv {
         if (!SecurityEnv._instance) {
             SecurityEnv._instance = Object.freeze(new SecurityEnv())
         }

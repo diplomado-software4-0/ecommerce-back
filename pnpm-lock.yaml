@@ -4,6 +4,9 @@ dependencies:
   cors:
     specifier: ^2.8.5
     version: 2.8.5
+  crypto-js:
+    specifier: ^4.2.0
+    version: 4.2.0
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
@@ -33,6 +36,9 @@ devDependencies:
   '@types/cors':
     specifier: ^2.8.17
     version: 2.8.17
+  '@types/crypto-js':
+    specifier: ^4.2.2
+    version: 4.2.2
   '@types/express':
     specifier: ^5.0.0
     version: 5.0.0
@@ -498,6 +504,10 @@ packages:
       '@types/node': 22.7.4
     dev: true
 
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
+    dev: true
+
   /@types/debug@4.1.12:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
@@ -816,6 +826,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
+    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

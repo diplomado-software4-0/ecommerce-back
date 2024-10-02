@@ -1,3 +1,3 @@
 export interface TransactionalRepository {
-    inTransactional: <T>(fn: (t: unknown) => Promise<T>) => Promise<T>;
+    inTransaction: <T>(fn: (t: unknown) => Promise<T>) => Promise<T>;
 }
