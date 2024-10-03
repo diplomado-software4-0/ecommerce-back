@@ -1,7 +1,9 @@
-import { RegisterInputData } from "./RegisterInputData";
-import { SecurityBase, UseCase, UseCaseArgs } from "@Domain/Model";
-import { UserRepository, UserRoleExecutionRepository } from "@Domain/Repository";
 import { TransactionalRepository } from "@Domain/Repository/Transacional.repository";
+import { UserRepository, UserRoleExecutionRepository } from "@Domain/Repository";
+import { UserRoleExecutionValues, UserValues } from "@Domain/Values";
+import { SecurityBase, UseCase, UseCaseArgs } from "@Domain/Model";
+import { RegisterInputData } from "./RegisterInputData";
+import { RoleExecutionEnum } from "@Domain/Enums";
 
 
 export class RegisterUseCase implements UseCase<RegisterInputData, boolean> {
@@ -12,13 +14,31 @@ export class RegisterUseCase implements UseCase<RegisterInputData, boolean> {
 
 
     public run = async (args: UseCaseArgs<RegisterInputData>): Promise<boolean> => {
-
         const { ...data } = args.data
-
         const hashPassword = this._security.encryptSHA256(data.password)
+
         await this._transactionalRepository.inTransaction(async (transaction) => {
-            const userData = new 
+            const userData = new UserValues({
+                name: data.name,
+                lastname: data.lastname,
+                cell_callsign: data.cell_callsign,
+                phone_number: data.phone_number,
+                email: data.email,
+                password: hashPassword,
+                is_active: true
+            })
+
+            const user = await this._userRepository.register(userData, { transaction })
+
+            const userRoleExecutionData = new UserRoleExecutionValues({
+                id_user: user.data.id_user,
+                id_role: BigInt(RoleExecutionEnum.CLIENT)
+            })
+
+            await this._userRoleExecutionRepository.create(userRoleExecutionData, { transaction })
         })
+
+        return true
 
     }
 }

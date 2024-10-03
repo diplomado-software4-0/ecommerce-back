@@ -14,5 +14,25 @@ declare global {
             SECRET_KEY: string;
             SECRET_KEY_TOKEN: string;
         }
+
+        interface Process {
+            errorContainerInstance: Array<ErrorConstructor>
+        }
     }
+
+    // Propiedad Personalizada para permitir el alamcenamiento de datos genericos y nulos
+    type PropertyNullable<T> = T | null;
+
+    // Propiedad Personalizada para permitir retornar de datos genericos y nulos
+    type ReturnNullable<T> = T | null;
+
+    // Propiedad Personalizada del Partial<T> para permitir el alamcenamiento de valores nullos en las propiedades del objeto
+    type PartialNullable<T> = {
+        [P in keyof T]?: T[P] | null;
+    };
+
+    type PartialAnyable<T> = {
+        [P in keyof T]?: unknown;
+    };
+
 }

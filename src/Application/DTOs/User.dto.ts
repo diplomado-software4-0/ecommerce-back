@@ -1,7 +1,5 @@
-export interface UserDTO{
-    ok: boolean,
-    message: string,
-    data:{
+export interface UserDTO {
+    data: {
         usernname: string;
         token: string
     }
