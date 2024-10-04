@@ -1,10 +1,9 @@
 import { RegisterUseCase } from "@Application/UseCases/User/Register/Register.usecase";
-import { Repository, StatusCodesHttp } from "@Domain/Enums";
-import { SecurityImpl, OptionsHttp } from '@Infrastructure/Implementations';
-import { UseCase } from '../../../Domain/Model/UseCase.model';
-import { Controller, ResponseHttp } from "@Domain/Model";
-import { RegisterInputData } from "@Application/UseCases/User";
+import { OptionsHttp, SecurityImpl } from '@Infrastructure/Implementations';
 import { DbRepositoryFactory } from "@Infrastructure/Repositories";
+import { RegisterInputData } from "@Application/UseCases/User";
+import { Repository, StatusCodesHttp } from "@Domain/Enums";
+import { Controller, ResponseHttp } from "@Domain/Model";
 
 export class RegisterUserController implements Controller {
     private readonly _useCase: RegisterUseCase;

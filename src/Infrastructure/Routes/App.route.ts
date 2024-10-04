@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { userRouter } from "./User.router";
 
 
 export class AppRouter {
@@ -6,5 +7,11 @@ export class AppRouter {
 
     public run(): void {
         const router = Router();
+
+        const userPath = '/api/user'
+
+        userRouter(userPath).publishRouter(router)
+
+        this._router.use(router)
     }
 }

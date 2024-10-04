@@ -18,7 +18,7 @@ export class DbConfig implements DataAccess<Sequelize> {
             username: env.DB_USER,
             password: env.DB_PASS,
             database: env.DB_NAME,
-            // models: [path.resolve(__dirname, "../Entities")]
+            models: [path.resolve(__dirname, "../Entities")]
         });
     }
 

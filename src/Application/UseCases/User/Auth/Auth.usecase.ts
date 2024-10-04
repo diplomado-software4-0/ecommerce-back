@@ -21,9 +21,15 @@ export class AuthUseCase implements UseCase<{ email: string, password: string },
         const userRole = await this._userRoleExecution.getUserRole(user.data.id_user)
         const roleExecution = await this._roleExecution.getById(Number(userRole.data.id_role))
 
+        let user_authenticate_name;
+        if (user.data.lastname !== null) {
+            user_authenticate_name = `${user.data.name} ${user.data.lastname}`
+        }
+        user_authenticate_name = `${user.data.name}`
+
         const token = this._security.createTokenWithExpirence<TokenData>({
             data: {
-                name: `${user.data.name} ${user.data.lastname}`,
+                name: user_authenticate_name,
                 email: user.data.email,
                 role: roleExecution.data.name,
                 is_active: user.data.is_active
@@ -33,7 +39,7 @@ export class AuthUseCase implements UseCase<{ email: string, password: string },
 
         return {
             data: {
-                usernname: `${user.data.name}${user.data.lastname}`,
+                usernname: user_authenticate_name,
                 token: token
             }
         }

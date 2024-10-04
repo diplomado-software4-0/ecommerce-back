@@ -1,9 +1,6 @@
 import { DataAccess } from "@Domain/Model";
 import { Sequelize } from "sequelize-typescript";
 
-
-
-
 export class TransacionalRepositoryImpl implements TransacionalRepositoryImpl{
     constructor(private readonly _dataAcces: DataAccess<Sequelize>) {}
 
