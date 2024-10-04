@@ -29,6 +29,7 @@ export class AuthUseCase implements UseCase<{ email: string, password: string },
 
         const token = this._security.createTokenWithExpirence<TokenData>({
             data: {
+                id_user: user.data.id_user,
                 name: user_authenticate_name,
                 email: user.data.email,
                 role: roleExecution.data.name,
@@ -38,10 +39,9 @@ export class AuthUseCase implements UseCase<{ email: string, password: string },
         })
 
         return {
-            data: {
-                usernname: user_authenticate_name,
-                token: token
-            }
+            usernname: user_authenticate_name,
+            token: token
+
         }
 
     }

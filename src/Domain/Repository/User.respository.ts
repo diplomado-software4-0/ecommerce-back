@@ -10,5 +10,6 @@ export interface UserRepository {
 
     checkCredential: (email: string, pasword: string) => Promise<{ data: UserEntity }>
 
-    
+    getById: (id_user?: bigint) => Promise<UserEntity>
+
 }

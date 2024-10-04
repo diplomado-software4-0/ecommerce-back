@@ -33,4 +33,9 @@ export class UserRepositoryImpl implements UserRepository {
 
         return { data: user?.dataValues as UserEntity }
     };
+
+    public getById = async (id_user?: bigint): Promise<UserEntity> => {
+        const user = await User.findOne({ where: { id_user: id_user } })
+        return user?.dataValues as UserEntity
+    };
 }

@@ -33,6 +33,9 @@ export class DbRepositoryFactory implements RepositoryFactoryBase {
         if (repository === Repository.UserRoleExecution) {
             return <RepositoryOptional<T>>new repo.UserRoleExecutionRepositoryImpl(this._dataAccess)
         }
+        if (repository === Repository.Product) {
+            return <RepositoryOptional<T>>new repo.ProductRepositoryImpl(this._dataAccess)
+        }
 
         return <RepositoryOptional<T>>null;
     }

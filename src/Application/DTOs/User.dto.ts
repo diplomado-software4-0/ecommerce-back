@@ -1,6 +1,4 @@
 export interface UserDTO {
-    data: {
-        usernname: string;
-        token: string
-    }
+    usernname: string;
+    token: string
 }
