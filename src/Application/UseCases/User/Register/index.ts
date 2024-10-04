@@ -1,2 +1,2 @@
 export * from "./RegisterInputData"
-// export * from "./Register.usecase"
+export * from "./Register.usecase"

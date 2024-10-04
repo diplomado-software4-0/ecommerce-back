@@ -17,14 +17,21 @@ export class DbRepositoryFactory implements RepositoryFactoryBase {
         if (!DbRepositoryFactory._instance) {
             DbRepositoryFactory._instance = new DbRepositoryFactory();
         }
-
         return DbRepositoryFactory._instance;
-
     }
 
-    public getRepositoryFactory<T extends Repository>(repository: T): RepositoryOptional<T>{
+    public getRepositoryFactory<T extends Repository>(repository: T): RepositoryOptional<T> {
         if (repository === Repository.Transactional) {
-            return <RepositoryOptional<T>>new repo.
+            return <RepositoryOptional<T>>new repo.TransacionalRepositoryImpl(this._dataAccess)
+        }
+        if (repository === Repository.User) {
+            return <RepositoryOptional<T>>new repo.UserRepositoryImpl(this._dataAccess)
+        }
+        if (repository === Repository.RoleExecution) {
+            return <RepositoryOptional<T>>new repo.RoleExecutionRepositoryImpl(this._dataAccess)
+        }
+        if (repository === Repository.UserRoleExecution) {
+            return <RepositoryOptional<T>>new repo.UserRoleExecutionRepositoryImpl(this._dataAccess)
         }
 
         return <RepositoryOptional<T>>null;

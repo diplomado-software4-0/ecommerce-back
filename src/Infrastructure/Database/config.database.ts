@@ -1,7 +1,7 @@
 import { DatabaseEnv } from "@SharedInfrastructure/Environments";
 import { Sequelize } from "sequelize-typescript"
 import { DataAccess } from "@Domain/Model";
-import { Dialect } from "sequelize";
+import { Dialect } from 'sequelize';
 import path from "path";
 
 
