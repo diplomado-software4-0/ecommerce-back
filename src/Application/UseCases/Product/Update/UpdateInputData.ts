@@ -1,6 +1,6 @@
-export interface AddInputData {
+export interface UpdateInputData {
+    id_product: string;
     name: string;
-    img: Buffer;
     price: number;
     description: string;
     category: number;

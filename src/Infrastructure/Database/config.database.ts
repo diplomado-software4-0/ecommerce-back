@@ -3,9 +3,11 @@ import { Sequelize } from "sequelize-typescript"
 import { DataAccess } from "@Domain/Model";
 import { Dialect } from 'sequelize';
 import path from "path";
-
+import { Logger } from "@SharedDomain/Models";
+import { LogApplication } from "@SharedInfrastructure/Log";
 
 export class DbConfig implements DataAccess<Sequelize> {
+    private readonly logger: Logger = new LogApplication(DbConfig);
     private static _instance: DbConfig;
     private readonly _engine: Sequelize;
 
@@ -37,9 +39,9 @@ export class DbConfig implements DataAccess<Sequelize> {
     public async connect(): Promise<void> {
         try {
             await this._engine.authenticate();
-            console.log("=== CONEXION ESTABLECIDA EXITOSAMENTE A LA BASE DE DATOS ===")
+            this.logger.info("=== CONEXION ESTABLECIDA EXITOSAMENTE A LA BASE DE DATOS ===")
         } catch (error) {
-            console.log("=== ERROR AL ESTABLECER CONEXION A LA BASE DE DATOS ===")
+            this.logger.error("=== ERROR AL ESTABLECER CONEXION A LA BASE DE DATOS ===")
             console.log(error)
         }
     }

@@ -1,4 +1,4 @@
-import { DbConfig } from "@Infrastructure/Database"
+import { DbConfig, FirebaseStorage } from "@Infrastructure/Database"
 import { ExceptionContainer } from "@Infrastructure/Implementations";
 import { AppRouter } from "@Infrastructure/Routes";
 import { Server } from "@Infrastructure/server";

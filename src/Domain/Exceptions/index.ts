@@ -1,2 +1,5 @@
 export * from "./Auth.exception"
 export * from "./AccessDenied.exception"
+export * from "./NotFoundFileRequest.exception"
+export * from "./InvalidFormat.exeption"
+export * from "./NotFoundData.exception"

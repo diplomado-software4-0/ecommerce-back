@@ -12,6 +12,15 @@ export interface DatabaseEnvironment {
     DB_NAME: string;
 }
 
+export interface FirebaseEnvironment {
+    FIREBASE_API_KEY: string;
+    FIREBASE_AUTH_DOMAIN: string;
+    FIREBASE_PROJECT_ID: string;
+    FIREBASE_STORAGE_BUCKET: string;
+    FIREBASE_MESSAGING_SENDER_ID: string;
+    FIREBASE_APP_ID: string;
+    FIREBASE_STORAGE_FOLDER:string;
+}
 export interface SecurityEnvironment {
     SECRET_KEY: string;
     SECRET_KEY_TOKEN: string;

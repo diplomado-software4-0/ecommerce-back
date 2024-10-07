@@ -1,16 +1,18 @@
 
-import { AddInputData, AddUseCase } from "@Application/UseCases/Product/Add";
+import { AddInputData, AddUseCase } from "@Application/UseCases/Product";
 import { Repository, StatusCodesHttp } from "@Domain/Enums";
 import { Controller, ResponseHttp } from "@Domain/Model";
 import { OptionsHttp } from "@Infrastructure/Implementations";
 import { DbRepositoryFactory } from "@Infrastructure/Repositories";
+import { StorageImpl } from '../../Implementations/Storage/StorageImpl.storage';
 
-export class CreateDiscountController implements Controller {
+export class AddController implements Controller {
     private readonly _useCase: AddUseCase;
 
     constructor() {
         this._useCase = new AddUseCase(
             DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.Transactional),
+            StorageImpl.getInstance(),
             DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.Product),
         )
     }
@@ -20,11 +22,12 @@ export class CreateDiscountController implements Controller {
         try {
             const response: ResponseHttp<unknown> = new ResponseHttp({
                 ok: true,
-                message: "descuento creado exitosamente"
+                message: "producto agregado exitosamente"
             })
 
             response.data = await this._useCase.run({
                 data: req.body,
+                file: req.file
             })
 
             return res.status(StatusCodesHttp.Ok).json(response);

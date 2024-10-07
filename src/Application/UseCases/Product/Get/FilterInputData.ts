@@ -1,9 +1,10 @@
 export interface FilterInputData {
+    id_product: string;
     name: string;
-    category: bigint;
-    initial_price: Date;
-    initial_approximate_price: Date;
-    final_approximate_price: Date;
+    category: number;
+    initial_approximate_price: number;
+    final_approximate_price: number;
+    use_pagination: boolean;
     page: number;
     size: number;
 }

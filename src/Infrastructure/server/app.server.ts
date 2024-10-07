@@ -7,6 +7,7 @@ import { LogApplication } from "@SharedInfrastructure/Log";
 import { ExceptionHandlerMiddleware } from "@Infrastructure/Middleware";
 import { ExceptionManager } from "@Infrastructure/Implementations";
 import helmet from "helmet";
+import { FirebaseStorage } from "@Infrastructure/Database";
 
 
 export class Server {
@@ -34,9 +35,9 @@ export class Server {
 
     public loadRouter(fn: (parentRouter: Router) => void): void {
         fn(this._parentRouter);
-        
+
         this._app.use(this._parentRouter);
-        
+
         const exceptionHandler = new ExceptionHandlerMiddleware(new ExceptionManager());
         this._parentRouter.use(exceptionHandler.run);
     }
@@ -45,8 +46,14 @@ export class Server {
         await Promise.all(this.dataAccess.map((dt) => dt.connect()));
     }
 
+    private async storage(): Promise<void> {
+        const firebase = FirebaseStorage.getInstance();
+        await firebase.connect();
+    }
+
     public start(): void {
         this.initDB();
+        this.storage();
         this._app.listen(this._systemEnv.REST_PORT, () => {
             this.logger.info(`Servidor corriendo en http://localhost:${this._systemEnv.REST_PORT}`)
         })

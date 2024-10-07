@@ -4,4 +4,5 @@ export interface UseCase<T, U> {
 
 export interface UseCaseArgs<T> {
     data: T;
+    file?: Express.Multer.File
 }
