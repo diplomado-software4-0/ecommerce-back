@@ -12,7 +12,7 @@ export class ProductValue implements ProductConstructor {
         this.description = data.description;
         this.category = data.category;
         this.stock = data.stock;
-        this.is_available = data.is_available;
+        this.id_product_state = data.id_product_state;
         this.created_at = this.updated_at = new Date()
     }
 
@@ -31,7 +31,7 @@ export class ProductValue implements ProductConstructor {
 
     stock: number;
 
-    is_available: boolean;
+    id_product_state: number;
 
     created_at: Date;
 

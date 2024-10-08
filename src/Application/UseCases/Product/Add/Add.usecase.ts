@@ -3,6 +3,7 @@ import { AddInputData } from "./AddInputData";
 import { ProductRepository, TransactionalRepository } from "@Domain/Repository";
 import { ProductValue } from "@Domain/Values";
 import { InvalidFromatExeption, NotFoundFileRequestExeption } from "@Domain/Exceptions";
+import { ProductStateEnunm } from "@Domain/Enums";
 
 export class AddUseCase implements UseCase<AddInputData, boolean> {
     constructor(private readonly _transactionalRepository: TransactionalRepository,
@@ -37,7 +38,7 @@ export class AddUseCase implements UseCase<AddInputData, boolean> {
                 description: values.description,
                 category: Number(values.category),
                 stock: Number(values.stock),
-                is_available: true
+                id_product_state: ProductStateEnunm.ACTIVO
             })
 
             await this._productRepository.add(productData, { transaction })

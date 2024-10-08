@@ -35,8 +35,8 @@ export class Product extends Model<PartialAnyable<ProductEntity>> implements Par
     declare stock: number; 
     
     @AllowNull(false)
-    @Column(DataType.STRING)
-    declare is_available: boolean;
+    @Column(DataType.SMALLINT)
+    declare id_product_state: boolean;
 
     @CreatedAt
     declare created_at: Date;

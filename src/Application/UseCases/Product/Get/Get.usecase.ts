@@ -26,6 +26,7 @@ export class GetUseCase implements UseCase<FilterInputData, ProductDTO> {
         const products = await this._productRepository.get(
             {
                 id_product: data.id_product,
+                id_product_state: data.id_product_strate,
                 name: data.name,
                 category: Number(data.category),
                 initial_approximate_price: Number(data.initial_approximate_price),

@@ -50,6 +50,7 @@ export class ProductRepositoryImpl implements ProductRepository {
     public get = async (
         filter: {
             id_product: string;
+            id_product_state: number;
             name: string;
             category: number;
             initial_approximate_price: number;
@@ -66,6 +67,10 @@ export class ProductRepositoryImpl implements ProductRepository {
 
         if (filter.id_product && filter.id_product !== "") {
             querySql.id_product = filter.id_product;
+        }
+
+        if (filter.id_product_state && filter.id_product_state > 0) {
+            querySql.id_product_state = filter.id_product_state;
         }
 
         if (filter.name && filter.name !== "") {

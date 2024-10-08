@@ -6,7 +6,7 @@ export interface ProductEntity {
     description: string;
     category: number;
     stock: number;
-    is_available: boolean;
+    id_product_state: number;
     created_at: Date;
     updated_at: Date
 }

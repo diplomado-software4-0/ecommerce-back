@@ -13,5 +13,21 @@ export class UpdateUseCase implements UseCase<UpdateInputData, boolean> {
 
         const product = await this._producRepository.getById(id_product)
         if (product === null) throw new NotFoundDataExeption(`No se encontro un file con el id: ${id_product}`)
+
+        await this._transactionalRepository.inTransaction(async (transaction) => {
+            const updateProduct = await this._producRepository.update({
+                id_product_state: data.id_rpduct_state ?? product.id_product_state,
+                name: data.name ?? product.name,
+                img_url: product.img_url,
+                price: data.price ?? product.price,
+                description: data.description ?? product.description,
+                category: data.category ?? product.category,
+                stock: data.stock ?? product.stock
+            }, {
+                transaction
+            })
+        })
+
+        return true;
     }
 }

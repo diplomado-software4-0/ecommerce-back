@@ -7,6 +7,7 @@ export class ProductMapper {
     public static toDTO(entity: ProductEntity[]): ProductDataDTO[] {
         return entity.map(data => ({
             id_product: data.id_product,
+            id_product_state:data.id_product_state,
             name: data.name,
             img_url: data.img_url,
             price: data.price,

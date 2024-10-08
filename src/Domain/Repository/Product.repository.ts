@@ -17,6 +17,7 @@ export interface ProductRepository {
     get: (
         filter: {
             id_product: string;
+            id_product_state: number;
             name: string;
             category: number;
             initial_approximate_price: number;

@@ -20,6 +20,11 @@ export const productRouter = (parentEndpoint: string, middlewares: Function[]) =
         '/get',
         get.run
     )
+
+    internalRouter.post(
+        '/update'
+    )
+
     return {
         publishRouter: (router: Router): void => {
             router.use(parentEndpoint, internalRouter)

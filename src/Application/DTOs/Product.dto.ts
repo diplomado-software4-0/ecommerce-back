@@ -6,6 +6,7 @@ export interface ProductDTO {
 
 export interface ProductDataDTO {
     id_product: string;
+    id_product_state: number;
     name: string;
     img_url: string;
     price: number;
