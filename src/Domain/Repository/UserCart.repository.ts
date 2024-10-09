@@ -1,0 +1,25 @@
+import { UserCartEntity } from "@Domain/Entities";
+
+export interface UserCartRepository {
+    add: (
+        entity: UserCartEntity,
+        options?: Partial<{ transaction: any }>
+    ) => Promise<boolean>
+
+    update: (
+        entity: Partial<Omit<UserCartEntity, 'created_at' | 'updated_at'>>,
+        options?: Partial<{ transaction: any }>
+    ) => Promise<boolean>;
+
+    countAll: () => Promise<number>
+
+    get: (
+        id_user_cart: string,
+        id_user: number,
+        state: number,
+        pagination: {
+            use_pagination: boolean;
+            page: number;
+            size: number;
+        }) => Promise<{ data: UserCartEntity[] }>
+}

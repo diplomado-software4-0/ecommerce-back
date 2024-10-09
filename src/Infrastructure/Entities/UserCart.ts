@@ -1,4 +1,5 @@
-import { UserCartEntity } from "@Domain/Entities/UserCart.entity";
+
+import { UserCartEntity } from "@Domain/Entities";
 import { AllowNull, AutoIncrement, Column, CreatedAt, DataType, Model, PrimaryKey, Table, UpdatedAt } from "sequelize-typescript";
 
 
