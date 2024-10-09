@@ -1,13 +1,13 @@
-import { UserCartEntity } from "@Domain/Entities";
+import { CartEntity } from "@Domain/Entities";
 
-export interface UserCartRepository {
+export interface CartRepository {
     add: (
-        entity: Omit<UserCartEntity, 'id_cart' | 'created_at' | 'updated_at'>,
+        entity: Omit<CartEntity, 'id_cart' | 'created_at' | 'updated_at'>,
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>
 
     update: (
-        entity: Partial<Omit<UserCartEntity, 'created_at' | 'updated_at'>>,
+        entity: Partial<Omit<CartEntity, 'created_at' | 'updated_at'>>,
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>;
 
@@ -21,5 +21,5 @@ export interface UserCartRepository {
             use_pagination: boolean;
             page: number;
             size: number;
-        }) => Promise<{ data: UserCartEntity[] }>
+        }) => Promise<{ data: CartEntity[] }>
 }

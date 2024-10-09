@@ -1,9 +1,8 @@
 import { ProductEntity } from "@Domain/Entities";
 
-
 export interface ProductRepository {
     add: (
-        entity: ProductEntity,
+        entity: Omit<ProductEntity, 'id_product' | 'created_at' | 'updated_at'>,
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>
 
