@@ -23,5 +23,7 @@ export interface CartRepository {
             size: number;
         }) => Promise<{ data: CartEntity[] }>
 
-    getByIdUser: (id_user: number) => Promise<CartEntity[]>
+    countByIdUser: (id_user: number) => Promise<number>
+
+    getByIdUser: (id_user: number, page: number, size: number) => Promise<{ data: CartEntity[] }>
 }

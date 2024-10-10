@@ -30,4 +30,6 @@ export interface ProductRepository {
         }) => Promise<{ data: ProductEntity[] }>
 
     getById: (id_product: string) => Promise<ProductEntity>
+
+    getByIds: (id_product: string[]) => Promise<ProductEntity[]>
 }
