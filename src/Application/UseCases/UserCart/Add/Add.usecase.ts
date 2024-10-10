@@ -5,8 +5,8 @@ import { CartValue, UserCartValue } from "@Domain/Values";
 
 export class AddUseCase implements UseCase<AddInputData, boolean> {
     constructor(
-        private readonly _cartRepository: CartRepository,
         private readonly _userCartRepository: UserCartRepository,
+        private readonly _cartRepository: CartRepository,
         private readonly _transactionalRepository: TransactionalRepository
     ) { }
 
@@ -17,20 +17,23 @@ export class AddUseCase implements UseCase<AddInputData, boolean> {
 
             const cart = new CartValue({
                 id_user: id_user,
-                id_user_cart: "",
                 purchase_complete: false
 
             })
 
             await this._cartRepository.add(cart, { transaction });
 
-            const userCartData = data.products.map((id_product => {
+            data.products.map(async (id_product) => {
                 const userCart = new UserCartValue({
+                    id_cart: cart.id_cart,
                     id_product: id_product,
                     remove_prod: false,
                 })
+
+                await this._userCartRepository.add(userCart, { transaction })
                 return userCart;
-            }))
+
+            })
 
 
             // Mover la logica al actualizar el estado del los productos cuando se va a reliza el pago de los articulos seleccionados.

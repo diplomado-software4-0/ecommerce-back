@@ -22,4 +22,6 @@ export interface UserCartRepository {
             page: number;
             size: number;
         }) => Promise<{ data: UserCartEntity[] }>
+
+    getData: (id_cart: string, id_product: string) => Promise<UserCartEntity>
 }

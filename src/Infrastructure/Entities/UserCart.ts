@@ -13,6 +13,10 @@ export class UserCart extends Model<PartialAnyable<UserCartEntity>> implements P
 
     @AllowNull(false)
     @Column(DataType.BIGINT)
+    declare id_cart: string;
+
+    @AllowNull(false)
+    @Column(DataType.BIGINT)
     declare id_product: string;
 
     @AllowNull(false)

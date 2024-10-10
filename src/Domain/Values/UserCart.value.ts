@@ -6,6 +6,7 @@ type UserCartConstructor = Omit<UserCartEntity, "id_user_cart" | "created_at" | 
 export class UserCartValue implements UserCartConstructor {
     constructor(data: UserCartConstructor) {
         this._id = uuidv4();
+        this.id_cart = data.id_cart;
         this.id_product = data.id_product;
         this.remove_prod = data.remove_prod;
         this.created_at = this.updated_at = new Date()
@@ -14,6 +15,8 @@ export class UserCartValue implements UserCartConstructor {
 
     private _id: string;
 
+    id_cart: string;
+    
     id_product: string;
 
     remove_prod:boolean;

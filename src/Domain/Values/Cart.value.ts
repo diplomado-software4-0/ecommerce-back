@@ -7,7 +7,6 @@ export class CartValue implements CartConstructor {
     constructor(data: CartConstructor) {
         this._id = uuidv4();
         this.id_user = data.id_user;
-        this.id_user_cart = data.id_user_cart;
         this.purchase_complete = data.purchase_complete;
         this.created_at = this.updated_at = new Date()
     }
@@ -16,8 +15,6 @@ export class CartValue implements CartConstructor {
     private _id: string;
 
     id_user: number;
-
-    id_user_cart: string;
 
     purchase_complete: boolean;
 
