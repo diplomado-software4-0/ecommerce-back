@@ -5,7 +5,9 @@ export enum Repository {
     User,
     RoleExecution,
     UserRoleExecution,
-    Product
+    Product,
+    Cart,
+    UserCart
 }
 
 export type RepositoryOptional<T extends Repository = Repository.Transactional> =
@@ -19,4 +21,8 @@ export type RepositoryOptional<T extends Repository = Repository.Transactional> 
     ? Repositories.UserRoleExecutionRepository
     : T extends Repository.Product
     ? Repositories.ProductRepository
+    : T extends Repository.Cart
+    ? Repositories.CartRepository
+    : T extends Repository.UserCart
+    ? Repositories.UserCartRepository
     : unknown;

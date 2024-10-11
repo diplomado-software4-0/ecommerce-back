@@ -1,11 +1,8 @@
-
 import { FilterInputData, GetUseCase } from "@Application/UseCases/Product";
 import { Repository, StatusCodesHttp } from "@Domain/Enums";
 import { Controller, ResponseHttp } from "@Domain/Model";
 import { OptionsHttp } from "@Infrastructure/Implementations";
 import { DbRepositoryFactory } from "@Infrastructure/Repositories";
-
-
 
 export class GetController implements Controller {
     private readonly _useCase: GetUseCase;

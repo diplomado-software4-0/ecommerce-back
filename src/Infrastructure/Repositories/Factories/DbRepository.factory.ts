@@ -36,6 +36,12 @@ export class DbRepositoryFactory implements RepositoryFactoryBase {
         if (repository === Repository.Product) {
             return <RepositoryOptional<T>>new repo.ProductRepositoryImpl(this._dataAccess)
         }
+        if (repository === Repository.Cart) {
+            return <RepositoryOptional<T>>new repo.CartRepositoryImpl(this._dataAccess)
+        }
+        if (repository === Repository.UserCart) {
+            return <RepositoryOptional<T>>new repo.UserCartRepositoryImpl(this._dataAccess)
+        }
 
         return <RepositoryOptional<T>>null;
     }

@@ -1,6 +1,6 @@
 export interface FilterInputData {
     id_product: string;
-    id_product_strate: number;
+    id_product_state: number;
     name: string;
     category: number;
     initial_approximate_price: number;

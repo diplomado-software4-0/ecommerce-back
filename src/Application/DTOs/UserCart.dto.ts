@@ -3,11 +3,8 @@ import { ProductDataDTO } from "./Product.dto";
 export interface UserCartDTO {
     total_items: number,
     total_page: number,
-    user_cart: {
-        total_items: number,
-        total_page: number,
-        data: UserCartData[],
-    }
+    user_cart: UserCartData[],
+
 
 }
 

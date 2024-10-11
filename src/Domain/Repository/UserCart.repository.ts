@@ -2,7 +2,7 @@ import { UserCartEntity } from "@Domain/Entities";
 
 export interface UserCartRepository {
     add: (
-        entity: Omit<UserCartEntity, 'id_cart' | 'created_at' | 'updated_at'>,
+        entity: Omit<UserCartEntity, 'created_at' | 'updated_at'>,
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>
 
@@ -25,5 +25,5 @@ export interface UserCartRepository {
 
     getData: (id_cart: string) => Promise<UserCartEntity[]>
 
-    getByIdsCart: (id_cart: string[], page: number, size: number) => Promise<UserCartEntity[]>
+    getByIdsCart: (id_cart: string[]) => Promise<UserCartEntity[]>
 }

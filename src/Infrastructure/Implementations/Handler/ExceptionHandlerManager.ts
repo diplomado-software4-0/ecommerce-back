@@ -1,5 +1,5 @@
 import { StatusCodesHttp } from "@Domain/Enums";
-import { AccessDeniedExeption, AuthException, InvalidFromatExeption, NotFoundDataExeption, NotFoundFileRequestExeption } from "@Domain/Exceptions";
+import { AccessDeniedExeption, AuthException, DataNotAvailableException, InvalidFromatExeption, NotFoundDataExeption, NotFoundFileRequestExeption } from "@Domain/Exceptions";
 import { ExceptionHandlerBase, ExceptionHandlerResponse, ResponseErrorHttp } from "@Domain/Model";
 import { ZodError } from "zod";
 
@@ -45,6 +45,12 @@ export class ExceptionManager implements ExceptionHandlerBase {
         }
 
         if (err instanceof NotFoundDataExeption) {
+            response.ok = false;
+            response.message = err.message;
+            return { statusCode: StatusCodesHttp.BadRequest, response }
+        }
+
+        if (err instanceof DataNotAvailableException) {
             response.ok = false;
             response.message = err.message;
             return { statusCode: StatusCodesHttp.BadRequest, response }

@@ -10,7 +10,7 @@ export class ProductRepositoryImpl implements ProductRepository {
     constructor(private readonly _dataAccess: DataAccess<Sequelize>) { }
 
     public add = async (
-        entity: ProductEntity,
+        entity: Omit<ProductEntity, 'created_at' | 'updated_at'>,
         options: Partial<{ transaction: Transaction; }> = {}
     ): Promise<boolean> => {
         const { transaction = null } = options
@@ -42,8 +42,8 @@ export class ProductRepositoryImpl implements ProductRepository {
         return !!row;
     };
 
-    public countAll = async (): Promise<number> => {
-        const { count } = await Product.findAndCountAll();
+    public countAll = async (id_product_state: number): Promise<number> => {
+        const { count } = await Product.findAndCountAll({ where: { id_product_state: id_product_state } });
         return count;
     };
 
@@ -106,6 +106,19 @@ export class ProductRepositoryImpl implements ProductRepository {
     public getById = async (id_product: string): Promise<ProductEntity> => {
         const row = await Product.findOne({ where: { id_product: id_product } })
         return row?.dataValues as ProductEntity
+    };
+
+    public getByIds = async (id_product: string[]): Promise<ProductEntity[]> => {
+        const { rows } = await Product.findAndCountAll({
+            where: {
+                id_product: {
+                    [Op.in]: id_product
+                }
+
+            }
+        })
+
+        return rows.map(x => x.dataValues as ProductEntity)
     };
 
 

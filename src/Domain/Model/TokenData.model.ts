@@ -1,5 +1,5 @@
 export type TokenData = {
-    id_user: bigint,
+    id_user: number,
     name: string,
     email: string,
     role?: string,

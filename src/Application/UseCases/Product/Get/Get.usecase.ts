@@ -26,7 +26,7 @@ export class GetUseCase implements UseCase<FilterInputData, ProductDTO> {
         const products = await this._productRepository.get(
             {
                 id_product: data.id_product,
-                id_product_state: data.id_product_strate,
+                id_product_state: data.id_product_state,
                 name: data.name,
                 category: Number(data.category),
                 initial_approximate_price: Number(data.initial_approximate_price),
@@ -39,7 +39,7 @@ export class GetUseCase implements UseCase<FilterInputData, ProductDTO> {
             })
 
 
-        const countItems = await this._productRepository.countAll();
+        const countItems = await this._productRepository.countAll(data.id_product_state);
         const countPages = Math.ceil(countItems / initialSize)
         const mapper = ProductMapper.toDTO(products.data)
 

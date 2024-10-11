@@ -1,12 +1,14 @@
 import { UseCase, UseCaseArgs } from "@Domain/Model";
 import { PurchaseInputData } from "./PurchaseInputData";
-import { CartRepository, TransactionalRepository, UserCartRepository } from "@Domain/Repository";
+import { CartRepository, ProductRepository, TransactionalRepository, UserCartRepository } from "@Domain/Repository";
 import { NotFoundDataExeption } from "@Domain/Exceptions";
+import { UserCart } from '../../../../../Infrastructure/Entities/UserCart';
 
 export class PuschaseUseCase implements UseCase<PurchaseInputData, boolean> {
     constructor(
         private readonly _userCartRepository: UserCartRepository,
         private readonly _cartRepository: CartRepository,
+        private readonly _productRepository: ProductRepository,
         private readonly _transactionalRepository: TransactionalRepository) { }
 
     public run = async (args: UseCaseArgs<PurchaseInputData>): Promise<boolean> => {
@@ -18,9 +20,15 @@ export class PuschaseUseCase implements UseCase<PurchaseInputData, boolean> {
 
             //Agregar la validacion de que el id_cart ingresado si pertenezca al usuario
 
-            const checkRequest = cart.find(item => item.id_cart === id_cart);
+            const checkRequest = cart.data.find(item => item.id_cart === id_cart);
 
             if (!checkRequest) throw new NotFoundDataExeption(`Ups, al parecer el id_cart ${id_cart} no pertence a tu usuario`)
+            //Se actualiza el stock de los productos de la base de datos
+
+            for (let id in products) {
+                const product = await this._productRepository.getById(id)
+                await this._productRepository.update({ id_product: id, stock: Number(product.stock) - 1 })
+            }
 
             const userCart = await this._userCartRepository.getData(id_cart)
 

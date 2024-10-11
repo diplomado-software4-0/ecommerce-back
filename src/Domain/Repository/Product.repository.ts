@@ -2,7 +2,7 @@ import { ProductEntity } from "@Domain/Entities";
 
 export interface ProductRepository {
     add: (
-        entity: Omit<ProductEntity, 'id_product' | 'created_at' | 'updated_at'>,
+        entity: Omit<ProductEntity, 'created_at' | 'updated_at'>,
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>
 
@@ -11,7 +11,7 @@ export interface ProductRepository {
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>;
 
-    countAll: () => Promise<number>
+    countAll: (id_product_state: number) => Promise<number>
 
     get: (
         filter: {

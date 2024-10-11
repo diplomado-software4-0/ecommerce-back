@@ -1,6 +1,5 @@
-export interface GetFilters {
+export interface FiltersData {
     id_user: number;
-    id_cart: string;
     page: number;
     size: number;
 }

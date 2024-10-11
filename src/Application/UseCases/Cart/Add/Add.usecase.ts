@@ -2,11 +2,13 @@ import { UseCase, UseCaseArgs } from "@Domain/Model";
 import { AddInputData } from "./AddInputData";
 import { CartRepository, ProductRepository, TransactionalRepository, UserCartRepository } from "@Domain/Repository";
 import { CartValue, UserCartValue } from "@Domain/Values";
+import { DataNotAvailableException } from "@Domain/Exceptions";
 
 export class AddUseCase implements UseCase<AddInputData, boolean> {
     constructor(
         private readonly _cartRepository: CartRepository,
         private readonly _userCartRepository: UserCartRepository,
+        private readonly _productRepository: ProductRepository,
         private readonly _transactionalRepository: TransactionalRepository
     ) { }
 
@@ -24,6 +26,8 @@ export class AddUseCase implements UseCase<AddInputData, boolean> {
             await this._cartRepository.add(cart, { transaction });
 
             data.products.map(async (id_product) => {
+                const product = await this._productRepository.getById(id_product)
+                if (product.stock <= 0) throw new DataNotAvailableException(`El producto con id ${id_product} no esta disponible en el momento`);
                 const userCart = new UserCartValue({
                     id_cart: cart.id_cart,
                     id_product: id_product,
@@ -31,7 +35,6 @@ export class AddUseCase implements UseCase<AddInputData, boolean> {
                 })
 
                 await this._userCartRepository.add(userCart, { transaction })
-
             })
 
         });
