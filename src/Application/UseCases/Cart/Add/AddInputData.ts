@@ -1,4 +1,4 @@
 export interface AddInputData {
-    id_user: number;
+    id_user: bigint | undefined;
     products: string[];
 }

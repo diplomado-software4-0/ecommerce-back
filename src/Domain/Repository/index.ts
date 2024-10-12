@@ -1,6 +1,6 @@
 export * from "./Transacional.repository"
 export * from "./User.respository"
-export * from "./UserRoleExecutions.repository"
+export * from "./UserRoleExecution.repository"
 export * from "./RoleExcecution.repository"
 export * from "./Product.repository"
 export * from "./UserCart.repository"

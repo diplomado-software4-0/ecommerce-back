@@ -18,8 +18,8 @@ export class AuthUseCase implements UseCase<{ email: string, password: string },
         const user = await this._userRepository.checkCredential(email, hashPassword)
         if (user === null) throw new AuthException();
 
-        const userRole = await this._userRoleExecution.getUserRole(user.data.id_user)
-        const roleExecution = await this._roleExecution.getById(Number(userRole.data.id_role))
+        const userRole = await this._userRoleExecution.getByIdUser(user.data.id_user)
+        const roleExecution = await this._roleExecution.getById(Number(userRole.id_role))
 
         let user_authenticate_name;
         if (user.data.lastname !== null) {

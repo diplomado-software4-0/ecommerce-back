@@ -5,7 +5,7 @@ import { Controller, ResponseHttp, TokenData } from "@Domain/Model";
 import { OptionsHttp } from "@Infrastructure/Implementations";
 import { DbRepositoryFactory } from "@Infrastructure/Repositories";
 
-export class GetController implements Controller {
+export class GetCarController implements Controller {
     private readonly _useCase: GetUserCartUseCase;
 
     constructor() {

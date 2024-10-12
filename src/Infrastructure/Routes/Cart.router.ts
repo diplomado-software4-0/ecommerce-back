@@ -1,41 +1,39 @@
-import { AddController, GetController, UpdateController } from "@Infrastructure/Controllers";
-import { upload } from "@Infrastructure/Database";
+
+import { AddToCartController, GetCarController, UpdatePurchaseController } from "@Infrastructure/Controllers";
 import { AddTokenInformationToRequestMiddleware } from "@Infrastructure/Middleware/AddTokenInformationToRequestMiddleware.middleware";
 import { Router } from "express"
 
-
-export const productRouter = (parentEndpoint: string, middlewares: Function[]) => {
+export const cartRouter = (parentEndpoint: string, middleware: Function[]) => {
     const internalRouter = Router();
 
     const addTokenToMiddleware = new AddTokenInformationToRequestMiddleware();
 
-    const add = new AddController();
-    const get = new GetController();
-    const update = new UpdateController();
+    const add = new AddToCartController();
+    const get = new GetCarController();
+    const update = new UpdatePurchaseController();
 
     internalRouter.post(
         '/add',
         [
-            middlewares,
+            middleware,
             addTokenToMiddleware.run,
         ] as any[],
-        upload.single('img'),
         add.run
     )
 
     internalRouter.get(
         '/get',
         [
-            middlewares,
+            middleware,
             addTokenToMiddleware.run,
         ] as any[],
         get.run
     )
 
     internalRouter.post(
-        '/update',
+        '/purchase',
         [
-            middlewares,
+            middleware,
             addTokenToMiddleware.run,
         ] as any[],
         update.run

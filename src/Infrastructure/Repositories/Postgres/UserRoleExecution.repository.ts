@@ -19,8 +19,10 @@ export class UserRoleExecutionRepositoryImpl implements UserRoleExecutionReposit
         return !!row
     };
 
-    public getUserRole = async (id_user: bigint): Promise<{ data: UserRoleExecutionEntity; }> => {
-        const user_role_execution = await UserRoleExecution.findOne({ where: { id_user: id_user } })
-        return { data: user_role_execution?.dataValues as UserRoleExecutionEntity }
+    getByIdUser = async (id_user: bigint | undefined): Promise<UserRoleExecutionEntity> => {
+        const row = await UserRoleExecution.findOne({ where: { id_user: id_user } })
+        return row?.dataValues as UserRoleExecutionEntity
     };
+
+
 }

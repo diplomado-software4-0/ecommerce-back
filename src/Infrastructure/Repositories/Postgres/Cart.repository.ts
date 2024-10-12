@@ -94,8 +94,7 @@ export class CartRepositoryImpl implements CartRepository {
     public getByIdUser = async (id_user: number): Promise<{ data: CartEntity[]; }> => {
         const { rows } = await Cart.findAndCountAll({
             where: {
-                id_user: id_user,
-                purchase_complete: true
+                id_user: id_user
             }
         })
 
@@ -105,8 +104,7 @@ export class CartRepositoryImpl implements CartRepository {
     public countByUser = async (id_user: number): Promise<number> => {
         const { count } = await Cart.findAndCountAll({
             where: {
-                id_user: id_user,
-                purchase_complete: true
+                id_user: id_user
             }
         })
 
@@ -116,8 +114,7 @@ export class CartRepositoryImpl implements CartRepository {
     public getByUser = async (id_user: number, page: number, size: number): Promise<{ data: CartEntity[]; }> => {
         const { rows } = await Cart.findAndCountAll({
             where: {
-                id_user: id_user,
-                purchase_complete: true,
+                id_user: id_user
             },
             limit: size,
             offset: (page - 1) * size

@@ -1,41 +1,39 @@
-
-import { AddInputData, AddUseCase } from "@Application/UseCases/Cart";
-import { Repository, StatusCodesHttp } from "@Domain/Enums";
 import { Controller, ResponseHttp, TokenData } from "@Domain/Model";
+import { DbRepositoryFactory } from '../../Repositories/Factories/DbRepository.factory';
+import { Repository, StatusCodesHttp } from "@Domain/Enums";
 import { OptionsHttp } from "@Infrastructure/Implementations";
-import { DbRepositoryFactory } from "@Infrastructure/Repositories";
+import { PurchaseInputData, PurchaseUseCase } from "@Application/UseCases/Cart";
 
-export class AddController implements Controller {
-    private readonly _useCase: AddUseCase;
+export class UpdatePurchaseController implements Controller {
+    private readonly _useCase: PurchaseUseCase;
 
     constructor() {
-        this._useCase = new AddUseCase(
-            DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.Cart),
+        this._useCase = new PurchaseUseCase(
             DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.UserCart),
+            DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.Cart),
             DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.Product),
             DbRepositoryFactory.getInstance().getRepositoryFactory(Repository.Transactional)
         )
     }
 
     public run = async (...args: unknown[]): Promise<unknown> => {
-        const [req, res, next] = OptionsHttp.httpArgs<AddInputData>(args);
-
+        const [req, res, next] = OptionsHttp.httpArgs<PurchaseInputData>(args);
         const { id_user } = req.user?.data as TokenData
-        const { products } = req.body
+        const { id_cart, products } = req.body
 
         try {
             const response: ResponseHttp<unknown> = new ResponseHttp({
                 ok: true,
-                message: "Agregado exitosamente al carrito"
+                message: "compra realizada exitosamente"
             })
 
             response.data = await this._useCase.run({
-                data: { id_user, products }
+                data: { id_user, id_cart, products }
             })
 
-            return res.status(StatusCodesHttp.Ok).json(response);
+            return res.status(StatusCodesHttp.Ok).json(response)
         } catch (error) {
-            return next(error)
+            next(error)
         }
     }
 }

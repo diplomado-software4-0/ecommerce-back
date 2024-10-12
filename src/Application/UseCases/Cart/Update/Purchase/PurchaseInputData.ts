@@ -1,5 +1,5 @@
 export interface PurchaseInputData {
-    id_user: number,
+    id_user: bigint | undefined, 
     id_cart: string,
     products: string[]
 }

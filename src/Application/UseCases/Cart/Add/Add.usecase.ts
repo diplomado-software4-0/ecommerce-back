@@ -16,27 +16,25 @@ export class AddUseCase implements UseCase<AddInputData, boolean> {
         const { id_user, ...data } = args.data;
 
         await this._transactionalRepository.inTransaction(async (transaction) => {
-
             const cart = new CartValue({
-                id_user: id_user,
+                id_user: Number(id_user),
                 purchase_complete: false
-
-            })
+            });
 
             await this._cartRepository.add(cart, { transaction });
 
-            data.products.map(async (id_product) => {
-                const product = await this._productRepository.getById(id_product)
-                if (product.stock <= 0) throw new DataNotAvailableException(`El producto con id ${id_product} no esta disponible en el momento`);
+            for (const id_product of data.products) {
+                const product = await this._productRepository.getById(id_product);
+                if (product.stock <= 0) throw new DataNotAvailableException(`El producto con id ${id_product} no está disponible en este momento`);
+
                 const userCart = new UserCartValue({
                     id_cart: cart.id_cart,
                     id_product: id_product,
-                    remove_prod: false,
-                })
+                    remove_prod: false
+                });
 
-                await this._userCartRepository.add(userCart, { transaction })
-            })
-
+                await this._userCartRepository.add(userCart, { transaction });
+            }
         });
 
         return true;

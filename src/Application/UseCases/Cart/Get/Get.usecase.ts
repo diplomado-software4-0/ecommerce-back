@@ -24,17 +24,17 @@ export class GetUserCartUseCase implements UseCase<FiltersData, UserCartDTO> {
             initialSize = data.size;
         }
 
-        const cart = await this._cartRepository.getByUser(id_user, data.page, data.size);
+        const cart = await this._cartRepository.getByUser(Number(id_user), data.page, data.size);
 
         //Calcular el total de paginas y de datos
-        const countItems = await this._cartRepository.countByUser(id_user)
+        const countItems = await this._cartRepository.countByUser(Number(id_user))
         const countPages = Math.ceil(countItems / initialSize)
 
         const user_cart = await this._userCartRepository.getByIdsCart(cart.data.map(x => x.id_cart))
         const products = await this._productRepository.getByIds(user_cart.map(x => x.id_product))
 
 
-        const dataMapper = UserCartMapper.toDTO(cart.data, products)
+        const dataMapper = UserCartMapper.toDTO(cart.data, user_cart, products)
 
         return {
             total_items: countItems,

@@ -10,7 +10,19 @@ export interface ProductDataDTO {
     name: string;
     img_url: string;
     price: number;
-    descrition: string;
+    description: string;
+    stock: number;
+    category: number;
+}
+
+export interface UserCartProductsData{
+    remove_prod: boolean;
+    id_product: string;
+    id_product_state: number;
+    name: string;
+    img_url: string;
+    price: number;
+    description: string;
     stock: number;
     category: number;
 }

@@ -1,6 +1,7 @@
 export interface UpdateInputData {
+    id_user: bigint | undefined,
     id_product: string;
-    id_rpduct_state: number;
+    id_product_state: number;
     name: string;
     price: number;
     description: string;

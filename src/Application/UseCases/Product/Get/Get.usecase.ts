@@ -3,6 +3,7 @@ import { FilterInputData } from "./FilterInputData";
 import { ProductDTO } from "@Application/DTOs/Product.dto";
 import { ProductRepository } from "@Domain/Repository";
 import { ProductMapper } from "@Application/Mappers";
+import { ProductStateEnunm } from "@Domain/Enums";
 
 export class GetUseCase implements UseCase<FilterInputData, ProductDTO> {
     constructor(private readonly _productRepository: ProductRepository) { }
@@ -33,13 +34,14 @@ export class GetUseCase implements UseCase<FilterInputData, ProductDTO> {
                 final_approximate_price: Number(data.final_approximate_price)
             },
             {
+                
                 use_pagination: data.use_pagination,
                 page: Number(data.page),
                 size: Number(data.size),
             })
 
 
-        const countItems = await this._productRepository.countAll(data.id_product_state);
+        const countItems = await this._productRepository.countAll(data.id_product_state ?? ProductStateEnunm.ACTIVO);
         const countPages = Math.ceil(countItems / initialSize)
         const mapper = ProductMapper.toDTO(products.data)
 

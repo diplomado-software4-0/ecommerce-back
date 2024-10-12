@@ -33,7 +33,7 @@ export class UserCartRepositoryImpl implements UserCartRepository {
         const { transaction = null } = options
         const row = await UserCart.update(entity, {
             where: {
-                id_user_cart: entity.id_user_cart
+                id_product: entity.id_product
             },
 
             returning: true,

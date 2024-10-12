@@ -1,4 +1,5 @@
 export interface AddInputData {
+    id_user: bigint | undefined;
     name: string;
     img: Buffer;
     price: number;

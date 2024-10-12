@@ -1,2 +1,2 @@
-export * from "./register.controller"
-export * from "./auth.controller"
+export * from "./Register.controller"
+export * from "./Auth.controller"

@@ -1,5 +1,5 @@
 export interface FiltersData {
-    id_user: number;
+    id_user: bigint | undefined;
     page: number;
     size: number;
 }

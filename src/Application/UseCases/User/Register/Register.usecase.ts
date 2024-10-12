@@ -32,7 +32,7 @@ export class RegisterUseCase implements UseCase<RegisterInputData, boolean> {
 
             const userRoleExecutionData = new UserRoleExecutionValues({
                 id_user: user.data.id_user,
-                id_role: BigInt(RoleExecutionEnum.CLIENT)
+                id_role: RoleExecutionEnum.CLIENT
             })
 
             await this._userRoleExecutionRepository.create(userRoleExecutionData, { transaction })

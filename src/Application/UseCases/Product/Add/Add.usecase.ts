@@ -1,19 +1,24 @@
 import { StorageBase, UseCase, UseCaseArgs } from "@Domain/Model";
 import { AddInputData } from "./AddInputData";
-import { ProductRepository, TransactionalRepository } from "@Domain/Repository";
+import { ProductRepository, TransactionalRepository, UserRepository, UserRoleExecutionRepository } from "@Domain/Repository";
 import { ProductValue } from "@Domain/Values";
-import { InvalidFromatExeption, NotFoundFileRequestExeption } from "@Domain/Exceptions";
-import { ProductStateEnunm } from "@Domain/Enums";
+import { InvalidFromatExeption, NotFoundFileRequestExeption, UnauthorizedException } from "@Domain/Exceptions";
+import { ProductStateEnunm, RoleExecutionEnum } from "@Domain/Enums";
 
 export class AddUseCase implements UseCase<AddInputData, boolean> {
     constructor(private readonly _transactionalRepository: TransactionalRepository,
         private readonly _storageBase: StorageBase,
+        private readonly _userRoleExecutionRepository: UserRoleExecutionRepository,
         private readonly _productRepository: ProductRepository) { }
 
     public run = async (args: UseCaseArgs<AddInputData & { file?: Express.Multer.File }>): Promise<boolean> => {
         const { file, data } = args
-        const { ...values } = data
+        const { id_user, ...values } = data
         let img_url = ""
+
+        // Validar rol 
+        const user = await this._userRoleExecutionRepository.getByIdUser(id_user)
+        if (user.id_role !== RoleExecutionEnum.ADMIN) throw new UnauthorizedException('Rol no tiene los permisos necesario, accion permitida solo para cuenta administradora')
 
         if (file) {
             if (file.mimetype === 'image/jpeg' ||

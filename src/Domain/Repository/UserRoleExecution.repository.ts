@@ -6,6 +6,6 @@ export interface UserRoleExecutionRepository {
         entity: Omit<UserRoleExecutionEntity, "id_user_role_execution" | "created_at" | "updated_at">,
         options?: Partial<{ transaction: any }>
     ) => Promise<boolean>
-
-    getUserRole: (id_user: bigint) => Promise<{ data: UserRoleExecutionEntity }>
+    
+    getByIdUser:(id_user:bigint | undefined) => Promise<UserRoleExecutionEntity>
 }

@@ -1,4 +1,5 @@
 import { ProductEntity } from "@Domain/Entities";
+import { ProductStateEnunm } from "@Domain/Enums";
 import { DataAccess } from "@Domain/Model";
 import { ProductRepository } from "@Domain/Repository";
 import { Product } from "@Infrastructure/Entities/Product";
@@ -42,11 +43,6 @@ export class ProductRepositoryImpl implements ProductRepository {
         return !!row;
     };
 
-    public countAll = async (id_product_state: number): Promise<number> => {
-        const { count } = await Product.findAndCountAll({ where: { id_product_state: id_product_state } });
-        return count;
-    };
-
     public get = async (
         filter: {
             id_product: string;
@@ -69,9 +65,15 @@ export class ProductRepositoryImpl implements ProductRepository {
             querySql.id_product = filter.id_product;
         }
 
-        if (filter.id_product_state && filter.id_product_state > 0) {
-            querySql.id_product_state = filter.id_product_state;
+        if (filter.id_product_state && filter.id_product_state) {
+            querySql.id_product_state = filter.id_product_state
+        } else {
+            querySql.id_product_state = {
+                [Op.in]: [ProductStateEnunm.ACTIVO, ProductStateEnunm.AGOTADO]
+
+            }
         }
+
 
         if (filter.name && filter.name !== "") {
             querySql.name = {
@@ -100,6 +102,19 @@ export class ProductRepositoryImpl implements ProductRepository {
         const { rows } = await Product.findAndCountAll({ where: querySql, ...options })
         return { data: rows.map(d => d.dataValues) as ProductEntity[] }
 
+    };
+
+
+    public countAll = async (id_product_state: number): Promise<number> => {
+        const { count } = await Product.findAndCountAll({
+            where: {
+                id_product_state: {
+                    [Op.in]: [ProductStateEnunm.ACTIVO, ProductStateEnunm.AGOTADO]
+                }
+            }
+        });
+
+        return count;
     };
 
 
